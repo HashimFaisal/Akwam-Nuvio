@@ -1,7 +1,7 @@
 {
   "id": "akwam",
   "name": "Akwam | أكوام",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Akwam movie and TV sources for Nuvio",
   "author": "HashimFaisal",
   "scrapers": [
@@ -9,12 +9,17 @@
       "id": "akwam",
       "name": "Akwam | أكوام",
       "description": "Arabic movies and series from Akwam",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "filename": "index.js",
-      "supportedTypes": ["movie", "tv"],
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
       "enabled": true,
       "hasSettings": true,
-      "supportedPlatforms": ["android"],
+      "supportedPlatforms": [
+        "android"
+      ],
       "logo": "https://www.google.com/s2/favicons?domain=akwam.ss&sz=128"
     }
   ]
