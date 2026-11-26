@@ -178,9 +178,21 @@ async function getStreams(id, mediaType, season, episode) {
     const watchUrls = extractWatchUrls(html).slice(0, 4);
     const streams = [];
     for (const url of watchUrls) streams.push(...await extractStreams(url));
+    // Keep only one stream per detected quality across all watch pages.
+    // Unknown-quality streams are deduplicated by URL so distinct links are not lost.
     const seen = new Set();
-    return streams.filter(s => { if (seen.has(s.url)) return false; seen.add(s.url); return true; })
-      .sort((a, b) => parseInt(b.quality, 10) - parseInt(a.quality, 10));
+    return streams.filter(s => {
+      const key = s.quality && s.quality !== 'Unknown'
+        ? 'quality:' + s.quality.toLowerCase()
+        : 'url:' + s.url;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).sort((a, b) => {
+      const qa = parseInt(a.quality, 10) || 0;
+      const qb = parseInt(b.quality, 10) || 0;
+      return qb - qa;
+    });
   } catch (error) {
     console.error('[Akwam] ' + (error && error.message || error));
     return [];
