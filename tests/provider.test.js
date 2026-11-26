@@ -1,0 +1,15 @@
+'use strict';
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const source = fs.readFileSync(require.resolve('../index.js'), 'utf8');
+assert.match(source, /function normalizeTitle/);
+assert.match(source, /function findEpisode/);
+assert.match(source, /if \(!chosen\) return \[\]/);
+assert.match(source, /function extractWatchUrls/);
+assert.match(source, /function qualityOf/);
+const context = { module: { exports: {} }, exports: {}, console, URL, URLSearchParams, Map, Set, Date, Promise, RegExp, String, Number, Math };
+vm.runInNewContext(source, context);
+assert.equal(typeof context.module.exports.getStreams, 'function');
+assert.equal(typeof context.module.exports.onSettings, 'function');
+console.log('Akwam provider static contract tests passed');
