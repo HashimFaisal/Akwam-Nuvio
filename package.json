@@ -1,0 +1,7 @@
+{
+  "name": "akwam-nuvio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Standalone Akwam stream provider for Nuvio",
+  "scripts": { "test": "node tests/provider.test.js", "check": "node --check index.js" }
+}
