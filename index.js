@@ -138,8 +138,8 @@ function extractWatchUrls(html) {
 function qualityOf(tag, url) {
   // Akwam may put resolution in different attributes or in the media URL.
   const value = String(tag || '') + ' ' + String(url || '');
-  const m = value.match(/(?:2160|1440|1080|720|576|540|480|360)\\s*p?/i);
-  return m ? m[0].replace(/\\s+/g, '').toLowerCase().replace(/p?$/, 'p') : 'Unknown';
+  const m = value.match(/(?:2160|1440|1080|720|576|540|480|360)\s*p?/i);
+  return m ? m[0].replace(/\s+/g, '').toLowerCase().replace(/p?$/, 'p') : 'Unknown';
 }
 async function extractStreams(watchUrl) {
   const page = await request(watchUrl);
